@@ -1,0 +1,39 @@
+<footer class="site-footer" id="contact">
+  <div class="wrap top">
+    <div class="brand">
+      <div class="wordmark">
+        <span class="mark">PI</span>
+        <span class="name">Pledge India<em>Tourism</em></span>
+      </div>
+      <p class="tag">Honest, season-aware guides to travelling India — built one place at a time.</p>
+    </div>
+
+    <div class="col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#destinations">Destinations</a></li>
+        <li><a href="#about">About us</a></li>
+        <li><a href="#top">Back to top</a></li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <h4>Get in touch</h4>
+      <ul>
+        <li><a href="mailto:hello@pledgeindiatourism.example">hello&#64;pledgeindiatourism.example</a></li>
+        <li><a href="tel:+911140000000">+91 11 4000 0000</a></li>
+      </ul>
+    </div>
+
+    <form class="stub-form" (submit)="$event.preventDefault()">
+      <h4>Trip notes, monthly</h4>
+      <label for="email" class="sr-only">Email address</label>
+      <input id="email" type="email" placeholder="you@example.com" required>
+      <button type="submit" class="btn btn-primary">Subscribe</button>
+    </form>
+  </div>
+
+  <div class="wrap bottom">
+    <p>&copy; {{ year }} Pledge India Tourism. Built for travellers, not algorithms.</p>
+  </div>
+</footer>

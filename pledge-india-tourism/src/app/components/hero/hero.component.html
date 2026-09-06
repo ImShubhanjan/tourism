@@ -1,0 +1,38 @@
+<section class="hero" id="top">
+  <div class="backdrop" [style.background-image]="'linear-gradient(180deg, rgba(22,35,63,0.35) 0%, rgba(22,35,63,0.78) 78%, var(--ink) 100%), url(' + backdropUrl + ')'"></div>
+
+  <div class="wrap content">
+    <p class="eyebrow-stamp eyebrow-light">A field guide to India, kept honest</p>
+    <h1>
+      Incredible journeys,<br>
+      <em>kept simple.</em>
+    </h1>
+    <p class="lede">
+      Eight places we'd actually send our own families — from a marble mausoleum
+      at sunrise to a lake that changes colour by the hour. No influencer spots,
+      no filler.
+    </p>
+    <a href="#destinations" class="btn btn-primary">Explore destinations</a>
+  </div>
+
+  <div class="wrap">
+    <div class="stub">
+      <div class="stub-item">
+        <span class="stub-value">{{ destinationCount }}</span>
+        <span class="stub-label">Destinations</span>
+      </div>
+      <div class="stub-item">
+        <span class="stub-value">{{ stateCount }}</span>
+        <span class="stub-label">States covered</span>
+      </div>
+      <div class="stub-item">
+        <span class="stub-value">{{ averageRating | number:'1.1-1' }}</span>
+        <span class="stub-label">Average rating</span>
+      </div>
+      <div class="stub-item">
+        <span class="stub-value">24/7</span>
+        <span class="stub-label">Trip support</span>
+      </div>
+    </div>
+  </div>
+</section>

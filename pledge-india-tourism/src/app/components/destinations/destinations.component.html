@@ -1,0 +1,17 @@
+<section class="destinations" id="destinations">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow-stamp">Where to go</p>
+      <h2>Eight places, none of them filler.</h2>
+    </div>
+
+    <div class="grid" *ngIf="!loading">
+      <app-destination-card
+        *ngFor="let destination of destinations; trackBy: trackById"
+        [destination]="destination">
+      </app-destination-card>
+    </div>
+
+    <p class="loading" *ngIf="loading">Loading destinations…</p>
+  </div>
+</section>

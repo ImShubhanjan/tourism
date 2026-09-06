@@ -1,0 +1,109 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--ink);
+  border-bottom: 1px solid rgba(255, 253, 248, 0.08);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 76px;
+  gap: 24px;
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.mark {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--marigold);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.name {
+  font-family: var(--font-display);
+  color: var(--ivory);
+  font-size: 1.08rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.name em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--marigold);
+  margin-left: 5px;
+}
+
+.links {
+  display: flex;
+  gap: 34px;
+  margin-left: auto;
+  margin-right: 8px;
+}
+.links a {
+  color: rgba(255, 253, 248, 0.82);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+.links a:hover { color: var(--marigold); }
+
+.cta { flex-shrink: 0; padding: 10px 20px; }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+.hamburger span {
+  display: block;
+  height: 2px;
+  width: 22px;
+  background: var(--ivory);
+  margin: 0 auto;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.mobile-drawer {
+  display: none;
+  flex-direction: column;
+  background: var(--ink-soft);
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.25s ease;
+}
+.mobile-drawer a {
+  padding: 16px var(--gutter);
+  color: var(--ivory);
+  font-size: 1rem;
+  border-top: 1px solid rgba(255, 253, 248, 0.08);
+}
+.mobile-drawer .btn { margin: 14px var(--gutter) 18px; justify-content: center; }
+
+@media (max-width: 860px) {
+  .links, .cta { display: none; }
+  .hamburger { display: flex; }
+  .mobile-drawer { display: flex; }
+  .mobile-drawer.open { max-height: 320px; }
+}

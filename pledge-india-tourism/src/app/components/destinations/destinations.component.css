@@ -1,0 +1,30 @@
+.destinations { padding: 90px 0 100px; }
+
+.section-head {
+  max-width: 46ch;
+  margin-bottom: 44px;
+}
+.section-head h2 {
+  font-size: clamp(1.9rem, 3.4vw, 2.5rem);
+  margin-top: 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.loading {
+  color: var(--text-muted);
+  padding: 40px 0;
+}
+
+@media (max-width: 980px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .destinations { padding: 60px 0 70px; }
+  .grid { grid-template-columns: 1fr; gap: 22px; }
+}

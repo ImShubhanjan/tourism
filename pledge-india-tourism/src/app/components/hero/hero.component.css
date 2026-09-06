@@ -1,0 +1,86 @@
+.hero {
+  position: relative;
+  background: var(--ink);
+  padding-top: 100px;
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 60%;
+  transition: background-image 0.4s ease;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  padding-top: 60px;
+  padding-bottom: 110px;
+  max-width: 760px;
+}
+
+.eyebrow-light {
+  color: var(--marigold);
+}
+.eyebrow-light::before { background: var(--marigold); }
+
+h1 {
+  color: var(--ivory);
+  font-size: clamp(2.6rem, 6vw, 4.4rem);
+  margin-top: 18px;
+  font-weight: 600;
+}
+h1 em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--marigold);
+}
+
+.lede {
+  color: rgba(255, 253, 248, 0.86);
+  font-size: 1.15rem;
+  max-width: 46ch;
+  margin-top: 22px;
+  line-height: 1.65;
+}
+
+.hero .btn { margin-top: 32px; }
+
+.stub {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1.5px dashed rgba(255, 253, 248, 0.28);
+  padding-top: 26px;
+  padding-bottom: 30px;
+}
+
+.stub-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-left: 1.5px dashed rgba(255, 253, 248, 0.22);
+  padding-left: 20px;
+}
+.stub-item:first-child { border-left: none; padding-left: 0; }
+
+.stub-value {
+  font-family: var(--font-display);
+  color: var(--ivory);
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+.stub-label {
+  color: rgba(255, 253, 248, 0.65);
+  font-size: 0.82rem;
+}
+
+@media (max-width: 720px) {
+  .hero { padding-top: 0; }
+  .stub { grid-template-columns: repeat(2, 1fr); row-gap: 22px; }
+  .stub-item:nth-child(3) { border-left: none; padding-left: 0; }
+}

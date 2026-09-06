@@ -1,0 +1,31 @@
+<section class="featured" *ngIf="spotlight">
+  <div class="wrap split">
+    <div class="image">
+      <img [src]="spotlight.pic" [alt]="spotlight.name + ', ' + spotlight.state" loading="lazy">
+    </div>
+
+    <div class="copy">
+      <p class="eyebrow-stamp">This month's pick</p>
+      <h2>{{ spotlight.name }}</h2>
+      <p class="location">{{ spotlight.state }} · {{ spotlight.category }}</p>
+      <p class="desc">{{ spotlight.description }}</p>
+
+      <div class="facts">
+        <div>
+          <span class="label">Best season</span>
+          <span class="value">{{ spotlight.bestSeason }}</span>
+        </div>
+        <div>
+          <span class="label">Suggested stay</span>
+          <span class="value">{{ spotlight.duration }}</span>
+        </div>
+        <div>
+          <span class="label">Rating</span>
+          <span class="value">{{ spotlight.rating }} / 5</span>
+        </div>
+      </div>
+
+      <a href="#contact" class="btn btn-primary">Start planning</a>
+    </div>
+  </div>
+</section>

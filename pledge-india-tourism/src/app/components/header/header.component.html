@@ -1,0 +1,37 @@
+<header class="site-header">
+  <div class="wrap bar">
+    <a href="#top" class="wordmark" (click)="closeMenu()">
+      <span class="mark">PI</span>
+      <span class="name">Pledge India<em>Tourism</em></span>
+    </a>
+
+    <nav class="links" aria-label="Primary">
+      <a href="#destinations">Destinations</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <a href="#destinations" class="btn btn-primary cta">Plan a trip</a>
+
+    <button
+      class="hamburger"
+      type="button"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuOpen"
+      aria-controls="mobile-nav"
+      aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <nav
+    id="mobile-nav"
+    class="mobile-drawer"
+    [class.open]="menuOpen"
+    aria-label="Mobile">
+    <a href="#destinations" (click)="closeMenu()">Destinations</a>
+    <a href="#about" (click)="closeMenu()">About</a>
+    <a href="#contact" (click)="closeMenu()">Contact</a>
+    <a href="#destinations" class="btn btn-primary" (click)="closeMenu()">Plan a trip</a>
+  </nav>
+</header>

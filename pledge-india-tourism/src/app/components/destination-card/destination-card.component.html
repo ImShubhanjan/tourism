@@ -1,0 +1,31 @@
+<article class="card">
+  <div class="photo">
+    <img [src]="destination.pic" [alt]="destination.name + ', ' + destination.state" loading="lazy">
+    <span class="stamp">{{ destination.category }}</span>
+    <div class="photo-caption">
+      <h3>{{ destination.name }}</h3>
+      <span class="state">{{ destination.state }}</span>
+    </div>
+  </div>
+
+  <p class="desc">{{ destination.description }}</p>
+
+  <dl class="meta">
+    <div>
+      <dt>Best season</dt>
+      <dd>{{ destination.bestSeason }}</dd>
+    </div>
+    <div>
+      <dt>Stay</dt>
+      <dd>{{ destination.duration }}</dd>
+    </div>
+    <div>
+      <dt>Rating</dt>
+      <dd>{{ destination.rating }} / 5</dd>
+    </div>
+  </dl>
+
+  <ul class="tags">
+    <li *ngFor="let tag of destination.tags">{{ tag }}</li>
+  </ul>
+</article>
