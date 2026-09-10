@@ -1,0 +1,1331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pledge India Tourism — Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+:root{
+  --sand:#F6F1E7;--sand-deep:#ECE3D2;--paper:#FFFDF9;
+  --teal-900:#0E2E2E;--teal-800:#123C3C;--teal-700:#1B5252;--teal-600:#256B6B;--teal-100:#DCEAE8;
+  --coral:#F4623A;--coral-600:#DC4E28;--coral-100:#FDE3D8;
+  --ink:#23302D;--ink-soft:#5B6764;--line:#DED4C0;
+  --font-display:'Fraunces',serif;--font-body:'Work Sans',sans-serif;
+  --radius-sm:6px;--radius-md:14px;--radius-lg:28px;
+  --shadow:0 10px 30px -12px rgba(14,46,46,.18);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-body);background:var(--sand);color:var(--ink);line-height:1.55}
+h1,h2,h3{font-family:var(--font-display);color:var(--teal-900);margin:0 0 .5em;font-weight:600;line-height:1.15}
+h1{font-size:clamp(2rem,4vw,3.2rem)} h2{font-size:clamp(1.5rem,2.4vw,2.1rem)}
+p{margin:0 0 1em;color:var(--ink-soft)} img{max-width:100%;display:block}
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
+.section{padding:64px 0}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:var(--radius-sm);font-weight:600;font-size:.92rem;border:none;cursor:pointer;text-decoration:none}
+.btn-coral{background:var(--coral);color:#fff;box-shadow:0 8px 20px -6px rgba(244,98,58,.5)}
+.btn-outline{background:transparent;border:1.5px solid var(--teal-800);color:var(--teal-800)}
+.btn-teal{background:var(--teal-800);color:var(--sand)}
+.btn-sm{padding:8px 14px;font-size:.82rem}
+.badge{display:inline-block;padding:4px 12px;border-radius:100px;font-size:.72rem;font-weight:600;background:var(--coral-100);color:var(--coral-600)}
+.surface{background:var(--paper);border-radius:var(--radius-md);box-shadow:var(--shadow)}
+.nav{position:sticky;top:0;z-index:60;background:var(--teal-900)}
+.nav__inner{display:flex;align-items:center;justify-content:space-between;height:70px;gap:10px}
+.nav__logo{display:flex;align-items:center;gap:10px;color:var(--sand);font-family:var(--font-display);font-weight:600;font-size:1.1rem;text-decoration:none;flex-shrink:0;cursor:pointer;min-width:0}
+.nav__logo .full{white-space:nowrap}
+.nav__logo .short{display:none;white-space:nowrap}
+.nav__mark{width:32px;height:32px;border-radius:9px;background:var(--coral);color:#fff;display:grid;place-items:center;font-size:.95rem;flex-shrink:0}
+.nav__links{display:flex;align-items:center;gap:24px}
+.nav__links a{color:var(--sand);opacity:.85;font-size:.92rem;text-decoration:none;font-weight:500;cursor:pointer}
+.nav__links a:hover{opacity:1}
+.role-pill{font-size:.75rem;color:var(--sand);opacity:.85;border:1px solid rgba(246,241,231,.3);padding:5px 12px;border-radius:100px;white-space:nowrap;font-weight:600}
+.bell{position:relative;width:38px;height:38px;border-radius:50%;background:rgba(246,241,231,.1);display:grid;place-items:center;color:var(--sand);cursor:pointer;flex-shrink:0}
+.bell__count{position:absolute;top:-4px;right:-4px;background:var(--coral);color:#fff;font-size:.6rem;font-weight:700;min-width:16px;height:16px;border-radius:100px;display:grid;place-items:center;border:2px solid var(--teal-900)}
+.nav__actions{display:flex;align-items:center;gap:12px;position:relative}
+.nav__burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:30px;height:30px;background:transparent;border:none;cursor:pointer;padding:0;flex-shrink:0}
+.nav__burger span{height:2px;background:var(--sand);border-radius:2px;display:block}
+.mobile-auth{display:none}
+.bell-panel{position:absolute;right:0;top:52px;width:340px;max-width:90vw;background:var(--paper);border-radius:var(--radius-md);box-shadow:var(--shadow);overflow:hidden;z-index:70}
+.bell-panel__head{padding:14px 18px;font-weight:600;color:var(--teal-900);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:.92rem}
+.bell-panel__list{max-height:380px;overflow-y:auto}
+.bell-panel__item{padding:14px 18px;border-bottom:1px solid var(--line)}
+.bell-panel__item:last-child{border-bottom:none}
+.bell-panel__row{display:flex;justify-content:space-between;font-size:.78rem;color:var(--ink-soft);margin-bottom:2px}
+.bell-panel__row b{color:var(--teal-800)}
+.bell-panel__msg{font-size:.84rem;color:var(--ink);margin-top:6px}
+.bell-panel__time{font-size:.7rem;color:var(--ink-soft);margin-top:6px;display:block}
+.bell-panel__empty{padding:24px 18px;font-size:.85rem;color:var(--ink-soft);text-align:center}
+.hero{position:relative;min-height:560px;display:flex;align-items:center;color:var(--sand);
+  background:linear-gradient(180deg,rgba(14,46,46,.2),rgba(14,46,46,.82)),url('https://images.unsplash.com/photo-1721070025492-26368db1706f?auto=format&fit=crop&w=1600&q=80') center/cover;}
+.hero__content{padding:90px 24px 60px;max-width:720px}
+.hero h1{color:var(--sand)}
+.hero p.sub{color:rgba(246,241,231,.85);max-width:520px}
+.hero__ticket{margin-top:26px;padding:20px;display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;max-width:620px}
+.hero__ticket select{padding:11px 14px;border-radius:6px;border:1.5px solid var(--line);font-family:var(--font-body);flex:1;min-width:140px}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+.why-item .ic{width:48px;height:48px;border-radius:12px;background:var(--teal-100);color:var(--teal-700);display:grid;place-items:center;margin-bottom:12px;font-size:1.3rem}
+.dest-section{background:var(--sand-deep)}
+.dest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.dest-card{position:relative;border-radius:var(--radius-md);overflow:hidden;height:200px;cursor:pointer}
+.dest-card img{width:100%;height:100%;object-fit:cover}
+.dest-card .ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(14,46,46,.85));display:flex;flex-direction:column;justify-content:flex-end;padding:16px;color:var(--sand)}
+.dest-card .ov h3{color:var(--sand);margin:0;font-size:1.05rem}
+.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.ticket{background:var(--paper);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow);transition:transform .2s;position:relative}
+.ticket:hover{transform:translateY(-5px)}
+.ticket__img{height:170px;position:relative;overflow:hidden}
+.ticket__img img{width:100%;height:100%;object-fit:cover}
+.ticket__cat{position:absolute;top:12px;left:12px;background:rgba(18,60,60,.85);color:var(--sand);font-size:.68rem;font-weight:600;padding:4px 10px;border-radius:100px}
+.ticket__permit{position:absolute;top:12px;right:12px;background:rgba(244,98,58,.92);color:#fff;font-size:.64rem;font-weight:700;padding:4px 9px;border-radius:100px}
+.ticket__body{padding:18px 18px 14px}
+.ticket__body h3{font-size:1.05rem;margin-bottom:2px}
+.ticket__dest{font-size:.85rem;margin-bottom:10px}
+.ticket__meta{display:flex;justify-content:space-between;font-size:.8rem;color:var(--ink-soft)}
+.ticket__meta .rate{color:var(--coral-600);font-weight:600}
+.ticket__stub{position:relative;display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-top:2px dashed var(--line);background:var(--sand-deep)}
+.ticket__stub .notch{position:absolute;top:-9px;width:18px;height:18px;border-radius:50%;background:var(--sand);box-shadow:inset 0 0 0 2px var(--line)}
+.notch.l{left:-9px}.notch.r{right:-9px}
+.price-lbl{font-size:.68rem;color:var(--ink-soft);display:block}
+.price-val{font-family:var(--font-display);font-size:1.15rem;font-weight:600;color:var(--teal-900)}
+.cta-link{font-size:.82rem;font-weight:600;color:var(--coral-600);background:none;border:none;cursor:pointer;padding:0;font-family:var(--font-body)}
+.ticket__admin-actions{display:flex;gap:6px;padding:0 18px 16px}
+.ticket__admin-actions button{flex:1;font-size:.76rem;padding:7px 10px}
+.admin-add-card{border:2px dashed var(--teal-600);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--teal-700);font-weight:600;min-height:280px;background:rgba(37,107,107,.05);cursor:pointer}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.test-card{padding:24px}
+.stars{color:var(--coral);letter-spacing:2px;margin-bottom:8px}
+.test-card blockquote{font-style:italic;margin:0 0 14px;color:var(--ink)}
+.author{display:flex;align-items:center;gap:10px}
+.author img{width:40px;height:40px;border-radius:50%;object-fit:cover}
+.author strong{display:block;font-size:.88rem;color:var(--teal-900)}
+.author span{font-size:.76rem;color:var(--ink-soft)}
+.band{background:var(--teal-800);color:var(--sand);padding:50px 0}
+.band .container{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.band h2,.band p{color:var(--sand)}
+.band p{opacity:.85;margin:0}
+footer{background:var(--teal-900);color:var(--sand);padding:44px 0 20px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;padding-bottom:30px}
+.foot-grid h4{color:var(--sand);font-size:.92rem;margin:0 0 12px}
+.foot-grid a,.foot-grid p{color:rgba(246,241,231,.72);font-size:.86rem;display:block;margin-bottom:8px;text-decoration:none;cursor:pointer}
+.foot-bottom{border-top:1px solid rgba(246,241,231,.12);padding-top:16px;font-size:.76rem;color:rgba(246,241,231,.5);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.contact-hero{background:linear-gradient(180deg,rgba(14,46,46,.55),rgba(14,46,46,.88)),url('https://images.unsplash.com/photo-1668350202638-046c51e1d4de?auto=format&fit=crop&w=1600&q=80') center/cover;padding:70px 0 86px;color:var(--sand)}
+.contact-head{text-align:center;max-width:620px;margin:0 auto 40px}
+.contact-head p{margin:0}
+.contact-panel{display:grid;grid-template-columns:1fr 1.3fr;gap:40px;align-items:start}
+.contact-info .ci-item{display:flex;gap:14px;margin-bottom:24px;align-items:flex-start}
+.ci-icon{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:var(--sand);display:grid;place-items:center;font-size:1.1rem;box-shadow:var(--shadow)}
+.ci-item h3{color:var(--coral);font-size:.76rem;text-transform:uppercase;letter-spacing:.05em;margin:2px 0 4px;font-family:var(--font-body);font-weight:700}
+.ci-item p{color:rgba(246,241,231,.88);margin:0;font-size:.9rem}
+.ci-note{font-size:.8rem;color:rgba(246,241,231,.75);background:rgba(246,241,231,.08);border:1px solid rgba(246,241,231,.15);padding:12px 14px;border-radius:6px;margin-top:6px}
+.contact-form-card{padding:32px 34px}
+.contact-form-card h2{margin-bottom:20px}
+.uline-field{margin-bottom:18px}
+.uline-field input,.uline-field select,.uline-field textarea{width:100%;border:none;border-bottom:1.5px solid var(--line);background:transparent;font-family:var(--font-body);font-size:.94rem;padding:8px 2px;color:var(--ink);outline:none;resize:none}
+.uline-field select{cursor:pointer}
+.uline-field input:focus,.uline-field select:focus,.uline-field textarea:focus{border-bottom-color:var(--coral)}
+.thanks-icon{width:52px;height:52px;border-radius:50%;background:var(--teal-100);color:var(--teal-700);font-size:1.4rem;display:grid;place-items:center;margin:0 auto 14px}
+.email-receipt{text-align:left;background:var(--sand);border:1px solid var(--line);border-radius:6px;padding:16px;margin:18px 0;font-size:.82rem}
+.email-receipt .er-head{font-weight:700;color:var(--teal-800);margin-bottom:8px;padding-bottom:8px;border-bottom:1px dashed var(--line)}
+.email-receipt .er-row{display:grid;grid-template-columns:100px 1fr;gap:6px 10px;margin-bottom:3px}
+.email-receipt .er-row b{color:var(--ink-soft)}
+.email-note{font-size:.78rem;background:var(--teal-100);color:var(--teal-800);padding:10px 12px;border-radius:6px;margin-bottom:16px}
+.note{background:var(--coral-100);color:var(--coral-600);text-align:center;font-size:.82rem;padding:10px;font-weight:600}
+#pageDetail,#pageLogin,#pageAddPackage,#pageFeed{display:none}
+.detail-hero{height:320px;background-size:cover;background-position:center;display:flex;align-items:flex-end;color:var(--sand)}
+.detail-hero__inner{padding-bottom:30px}
+.detail-hero h1{color:var(--sand);margin:8px 0 4px}
+.detail-hero p{color:rgba(246,241,231,.85);margin:0}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--sand);opacity:.9;font-size:.85rem;background:rgba(0,0,0,.25);padding:8px 14px;border-radius:100px;border:none;cursor:pointer;font-family:var(--font-body);margin-top:16px}
+.detail-layout{display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:start}
+.detail-gallery{display:flex;gap:10px;margin-bottom:26px;overflow-x:auto}
+.detail-gallery img{width:120px;height:84px;border-radius:8px;object-fit:cover;flex-shrink:0}
+.check-list,.cross-list{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:9px}
+.check-list li,.cross-list li{position:relative;padding-left:24px;font-size:.9rem;color:var(--ink)}
+.check-list li::before{content:'✓';position:absolute;left:0;color:var(--teal-600);font-weight:700}
+.cross-list li::before{content:'✕';position:absolute;left:0;color:var(--ink-soft)}
+.permit-note{display:flex;gap:12px;background:var(--coral-100);border:1px solid rgba(244,98,58,.3);border-radius:8px;padding:14px 16px;margin-bottom:24px}
+.permit-note strong{color:var(--coral-600);font-size:.88rem;display:block;margin-bottom:2px}
+.permit-note p{margin:0;font-size:.84rem;color:var(--ink)}
+.transport-table{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:24px}
+.tt-head,.tt-row{display:grid;grid-template-columns:1.8fr 1fr 1fr;gap:10px;align-items:center;padding:13px 16px}
+.tt-head{background:var(--teal-900);color:var(--sand);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+.tt-row{border-top:1px solid var(--line);background:var(--paper);font-size:.85rem}
+.tt-row:nth-child(even){background:var(--sand)}
+.tt-type strong{display:block;font-size:.9rem;color:var(--teal-900)}
+.tt-type span{font-size:.76rem;color:var(--ink-soft)}
+.tt-price{font-weight:700;color:var(--teal-800)}
+.tt-price.meals{color:var(--coral-600)}
+.itin-day{display:flex;gap:16px;margin-bottom:14px}
+.itin-badge{flex-shrink:0;width:70px;height:34px;border-radius:100px;background:var(--teal-100);color:var(--teal-800);font-size:.74rem;font-weight:700;display:grid;place-items:center}
+.itin-day h3{font-size:.96rem;margin-bottom:2px}
+.itin-day p{margin:0;font-size:.87rem}
+.incl-excl{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:8px}
+.detail-sidebar{padding:24px;position:sticky;top:96px}
+.detail-sidebar .lbl{font-size:.8rem;color:var(--ink-soft)}
+.detail-sidebar .price{font-family:var(--font-display);font-size:1.9rem;color:var(--teal-900);font-weight:600;display:block}
+.detail-sidebar .per{font-size:.78rem;color:var(--ink-soft);margin-bottom:16px;display:block}
+.detail-sidebar .btn{width:100%;justify-content:center;margin-bottom:10px}
+.detail-facts{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:10px}
+.detail-facts li{display:flex;justify-content:space-between;font-size:.84rem;border-bottom:1px solid var(--line);padding-bottom:8px}
+.detail-facts strong{color:var(--teal-900)}
+.detail-facts span{color:var(--ink-soft)}
+.login-wrap{min-height:60vh;display:flex;align-items:center;justify-content:center;padding:60px 20px;background:var(--teal-900)}
+.login-card{width:100%;max-width:440px;padding:34px}
+.login-card__mark{width:52px;height:52px;border-radius:14px;background:var(--coral);color:#fff;display:grid;place-items:center;font-family:var(--font-display);font-size:1.4rem;margin:0 auto 14px}
+.login-card h1{text-align:center;font-size:1.5rem;margin-bottom:4px}
+.login-card>p.sub2{text-align:center;font-size:.88rem;margin-bottom:22px}
+.tab-switch{display:flex;background:var(--sand-deep);border-radius:100px;padding:4px;margin-bottom:22px}
+.tab-switch button{flex:1;background:transparent;border:none;padding:9px;border-radius:100px;font-size:.85rem;font-weight:600;color:var(--ink-soft);cursor:pointer;font-family:var(--font-body)}
+.tab-switch button.active{background:var(--teal-800);color:var(--sand)}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:.82rem;font-weight:600;color:var(--teal-800);margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:6px;font-family:var(--font-body);font-size:.92rem;background:var(--paper);color:var(--ink);outline:none;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--teal-600)}
+.login-error{color:var(--coral-600);font-size:.82rem;margin:-6px 0 12px}
+.otp-banner{background:var(--teal-100);color:var(--teal-800);font-size:.82rem;padding:10px 12px;border-radius:6px;margin-bottom:14px}
+.login-demo-hint{font-size:.76rem;color:var(--ink-soft);text-align:center;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+.login-back{display:block;text-align:center;margin-top:14px;font-size:.84rem;color:var(--ink-soft);cursor:pointer}
+.form-panel{padding:34px;max-width:820px;margin:0 auto}
+.form-panel h2{font-size:1.1rem;margin:26px 0 14px}
+.form-panel h2:first-child{margin-top:0}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px}
+.field--checkbox label{display:flex;align-items:center;gap:8px;font-weight:500;color:var(--ink);font-size:.9rem}
+.field--checkbox input{width:auto}
+.transport-editor{display:flex;flex-direction:column;gap:12px;margin-bottom:6px}
+.transport-editor__row{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.4fr;gap:12px;background:var(--sand);padding:14px;border-radius:8px}
+.transport-editor__row .field{margin-bottom:0}
+.itin-editor{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.itin-editor__row{display:grid;grid-template-columns:70px 1fr 1.6fr 34px;gap:10px;align-items:center}
+.itin-editor__row input{padding:10px 12px;border:1.5px solid var(--line);border-radius:6px;font-size:.86rem;font-family:var(--font-body)}
+.itin-editor__day{font-size:.8rem;font-weight:600;color:var(--teal-800)}
+.itin-editor__remove{width:32px;height:32px;border-radius:8px;background:var(--coral-100);color:var(--coral-600);border:none;cursor:pointer}
+.form-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+/* ===== updates feed ===== */
+.feed-hero{background:var(--teal-900);color:var(--sand);padding:56px 0 40px}
+.feed-hero h1{color:var(--sand);margin:10px 0 4px}
+.feed-hero p{color:rgba(246,241,231,.8);margin:0;max-width:520px}
+.feed-container{max-width:640px}
+.composer{padding:20px;margin-bottom:22px}
+.composer h3{margin-bottom:12px;font-size:1rem}
+.composer textarea,.composer input{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:6px;font-family:var(--font-body);font-size:.92rem;margin-bottom:10px;resize:vertical;background:var(--paper);color:var(--ink)}
+.composer .btn{width:100%;justify-content:center}
+.feed-scroll{display:flex;flex-direction:column;gap:18px;max-height:78vh;overflow-y:auto;padding-right:4px;scroll-behavior:smooth}
+.feed-post{padding:20px}
+.feed-post__head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.feed-post__avatar{width:40px;height:40px;border-radius:50%;background:var(--coral);color:#fff;display:grid;place-items:center;font-family:var(--font-display);font-weight:600;flex-shrink:0}
+.feed-post__head strong{display:block;font-size:.92rem;color:var(--teal-900)}
+.feed-post__head span{font-size:.76rem;color:var(--ink-soft)}
+.feed-post__delete{margin-left:auto;background:none;border:none;color:var(--ink-soft);cursor:pointer;font-size:.9rem;padding:4px}
+.feed-post__delete:hover{color:var(--coral-600)}
+.feed-post__message{color:var(--ink);margin-bottom:12px}
+.feed-post__image{width:100%;max-height:320px;object-fit:cover;border-radius:8px;margin-bottom:12px}
+.feed-post__actions button{background:var(--sand);border:none;padding:8px 16px;border-radius:100px;font-size:.85rem;font-weight:600;color:var(--teal-800);cursor:pointer}
+.feed-post__actions button:hover{background:var(--teal-100)}
+.feed-empty{padding:40px;text-align:center}
+@media(max-width:640px){.feed-scroll{max-height:70vh}}
+@media(max-width:900px){
+  .why-grid{grid-template-columns:repeat(2,1fr)}
+  .dest-grid{grid-template-columns:repeat(2,1fr)}
+  .pkg-grid{grid-template-columns:repeat(2,1fr)}
+  .test-grid{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr;gap:26px}
+  .contact-panel{grid-template-columns:1fr}
+  .contact-info{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px}
+  .ci-note{grid-column:1/-1}
+  .detail-layout{grid-template-columns:1fr}
+  .detail-sidebar{position:static}
+  .incl-excl{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .nav__burger{display:flex}
+  .nav__actions>.role-pill,.nav__actions>#loginLink,.nav__actions>#logoutBtn{display:none !important}
+  .nav__links{
+    position:fixed;top:70px;left:0;right:0;bottom:0;
+    background:var(--teal-900);
+    flex-direction:column;align-items:flex-start;gap:4px;
+    padding:10px 20px 24px;
+    transform:translateY(-8px);opacity:0;pointer-events:none;
+    transition:opacity .18s ease, transform .18s ease;
+    overflow-y:auto;
+  }
+  .nav__links.open{transform:translateY(0);opacity:1;pointer-events:auto}
+  .nav__links a{width:100%;padding:14px 0;border-bottom:1px solid rgba(246,241,231,.12);font-size:1rem}
+  .mobile-auth{display:flex;flex-direction:column;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(246,241,231,.15)}
+  .mobile-auth .role-pill{align-self:flex-start}
+}
+@media(max-width:600px){
+  .why-grid{grid-template-columns:1fr}
+  .dest-grid{grid-template-columns:1fr}
+  .pkg-grid{grid-template-columns:1fr}
+  .section{padding:44px 0}
+  .container{padding:0 18px}
+  .hero{min-height:520px}
+  .hero__content{padding:70px 18px 44px}
+  .hero__ticket{flex-direction:column;align-items:stretch}
+  .hero__ticket select{min-width:0}
+  .hero__ticket .btn{justify-content:center;width:100%}
+  .band .container{flex-direction:column;text-align:center}
+  .foot-bottom{flex-direction:column;text-align:center;gap:6px}
+  .note{font-size:.76rem;padding:9px 14px}
+  .contact-hero{padding:44px 0 54px}
+  .contact-info{grid-template-columns:1fr}
+  .contact-form-card{padding:24px 20px}
+  .tt-head{display:none}
+  .tt-row{grid-template-columns:1fr;gap:4px;padding:14px}
+  .tt-price::before{content:'Without meals: ';font-size:.72rem;color:var(--ink-soft);font-weight:500}
+  .tt-price.meals::before{content:'With meals: '}
+  .nav__logo .full{display:none}
+  .nav__logo .short{display:inline}
+  .transport-editor__row,.itin-editor__row{grid-template-columns:1fr}
+  .form-panel{padding:20px}
+  .bell-panel{position:fixed;top:70px;right:10px;left:10px;width:auto}
+}
+@media(max-width:400px){
+  .nav__inner{height:64px}
+  h1{font-size:1.8rem}
+}
+</style>
+</head>
+<body>
+
+<div class="note">Static visual preview — click "Admin Login" to try the admin experience (password or OTP demo), or browse everything as a visitor with no login needed. Full working Angular app is in the delivered zip.</div>
+
+<header class="nav">
+  <div class="container nav__inner">
+    <a class="nav__logo" onclick="showHome()"><span class="nav__mark">P</span><span class="full">Pledge India Tourism</span><span class="short">Pledge India</span></a>
+    <nav class="nav__links" id="navLinks">
+      <a onclick="showHome('home')">Home</a><a onclick="showHome('packages')">Packages</a><a onclick="showHome('about')">About</a><a onclick="openFeed()">Updates</a><a onclick="showHome('contact')">Contact</a>
+      <a id="manageLink" onclick="showHome('packages')" style="display:none">Manage Packages</a>
+      <div class="mobile-auth">
+        <span class="role-pill" id="mobileRolePill" style="display:none">Admin</span>
+        <a class="btn btn-coral" id="mobileLoginBtn" onclick="showLogin()">Login / Sign Up</a>
+        <button class="btn btn-teal" id="mobileLogoutBtn" style="display:none" onclick="logout()">Log out</button>
+      </div>
+    </nav>
+    <div class="nav__actions">
+      <div id="bellWrap" class="bell" style="display:none" onclick="toggleBell()">
+        🔔<span class="bell__count" id="bellCount">0</span>
+      </div>
+      <div id="bellPanel" class="bell-panel" style="display:none"></div>
+      <span class="role-pill" id="adminPill" style="display:none">Admin</span>
+      <a class="btn btn-coral" id="loginLink" onclick="showLogin()">Login / Sign Up</a>
+      <button class="btn btn-teal" id="logoutBtn" style="display:none" onclick="logout()">Log out</button>
+      <button class="nav__burger" onclick="toggleMenu()" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="pageHome">
+
+<section class="hero" id="home">
+  <div class="container hero__content">
+    <span class="badge" style="background:rgba(244,98,58,.2);color:#FFD9C9">Your gateway to the hills of North Bengal &amp; Sikkim</span>
+    <h1>Find your next Himalayan<br>escape, book it in minutes.</h1>
+    <p class="sub">Hand-planned trips across Darjeeling, Gangtok, and the offbeat trails of Rishikhola and Zuluk — with clear shared-vs-private vehicle pricing, always.</p>
+    <div class="hero__ticket surface">
+      <select><option>Anywhere</option><option>Darjeeling</option><option>Gangtok</option><option>Rishikhola</option><option>Zuluk</option><option>Kalimpong</option></select>
+      <select><option>Any trip type</option><option>Hill Station</option><option>Adventure</option><option>Offbeat</option><option>Group Tour</option></select>
+      <a class="btn btn-coral" onclick="showHome('packages')">Search Tours</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container why-grid">
+    <div class="why-item"><div class="ic">🛡️</div><h3>West Bengal Based, Since 2014</h3><p>A Siliguri-rooted team running North Bengal & Sikkim trips for over a decade.</p></div>
+    <div class="why-item"><div class="ic">💰</div><h3>Clear, Itemised Pricing</h3><p>Shared vs private vehicle cost and with/without meals pricing shown upfront.</p></div>
+    <div class="why-item"><div class="ic">🎧</div><h3>24/7 On-Trip Support</h3><p>A local coordinator's number is shared with every group for the full trip.</p></div>
+    <div class="why-item"><div class="ic">🗺️</div><h3>Permit Handling Included</h3><p>Restricted Area Permits for Tsomgo Lake, Zuluk, and Nathula arranged by us.</p></div>
+  </div>
+</section>
+
+<section class="section dest-section" id="about">
+  <div class="container">
+    <div style="max-width:520px;margin-bottom:30px"><h2>Popular destinations</h2><p>Hill towns and offbeat villages across North Bengal and Sikkim that our travellers keep going back to.</p></div>
+    <div class="dest-grid" id="destGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="packages">
+  <div class="container">
+    <div style="max-width:560px;margin-bottom:30px"><h2>All tour packages</h2><p>Every package we run — each with a full itinerary, permit notes where needed, and shared vs private vehicle pricing.</p></div>
+    <div class="pkg-grid" id="pkgGrid"></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div style="max-width:520px;margin-bottom:30px"><h2>What our travellers say</h2></div>
+    <div class="test-grid" id="testGrid"></div>
+  </div>
+</section>
+
+<section class="contact-hero" id="contact">
+  <div class="container contact-head">
+    <h1 style="color:var(--sand)">Contact Us</h1>
+    <p style="color:rgba(246,241,231,.82)">Questions about a destination, an itinerary, or an existing booking? Send us a message below and our travel desk will get back to you shortly.</p>
+  </div>
+  <div class="container contact-panel">
+    <div class="contact-info">
+      <div class="ci-item"><span class="ci-icon">🏠</span><div><h3>Address</h3><p>Sevoke Road, Siliguri, Darjeeling District, West Bengal, India</p></div></div>
+      <div class="ci-item"><span class="ci-icon">📞</span><div><h3>Phone</h3><p>+91 98300 12345</p></div></div>
+      <div class="ci-item"><span class="ci-icon">✉️</span><div><h3>Email</h3><p>riyadatascientist@gmail.com</p></div></div>
+      <p class="ci-note">Submitting the form emails our team automatically and drops the enquiry straight into the admin's notification bell — try it below.</p>
+    </div>
+
+    <div class="contact-form-card surface" id="contactCard">
+      <div id="contactFormView">
+        <h2>Send Message</h2>
+        <div class="email-note" id="emailModeNote">📧 Your message is emailed straight to our team automatically.</div>
+        <div class="uline-field"><input type="text" id="cf-name" placeholder="Full Name"></div>
+        <div class="uline-field"><input type="email" id="cf-email" placeholder="Email"></div>
+        <div class="uline-field"><input type="tel" id="cf-phone" placeholder="Phone (optional)"></div>
+        <div class="uline-field">
+          <select id="cf-package">
+            <option value="">General enquiry</option>
+          </select>
+        </div>
+        <div class="uline-field"><textarea id="cf-message" rows="3" placeholder="Type your Message..."></textarea></div>
+        <button class="btn btn-coral" style="width:100%;justify-content:center" onclick="sendContact()">Send</button>
+      </div>
+
+      <div id="contactThanksView" style="display:none;text-align:center">
+        <div class="thanks-icon">✓</div>
+        <h2>Message sent</h2>
+        <p id="sendStatusText">The admin has been notified in the bell icon.</p>
+        <div class="email-receipt" id="emailReceipt"></div>
+        <button class="btn btn-outline" onclick="resetContact()">Send another message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="container">
+    <div><h2>Have a destination in mind?</h2><p>Tell us what you're dreaming of and our travel experts will design a trip around it.</p></div>
+    <a class="btn btn-coral" onclick="showHome('contact')">Plan my trip</a>
+  </div>
+</section>
+
+</div>
+
+<div id="pageDetail">
+  <section class="detail-hero" id="detailHeroBg">
+    <div class="container detail-hero__inner">
+      <span class="badge" id="detailCategory"></span>
+      <h1 id="detailTitle"></h1>
+      <p id="detailSubtitle"></p>
+      <div><button class="back-link" onclick="backToPackages()">← Back to all packages</button></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container detail-layout">
+      <div class="detail-main">
+        <div class="detail-gallery" id="detailGallery"></div>
+
+        <h2>Overview</h2>
+        <p id="detailOverview"></p>
+
+        <h2>Highlights</h2>
+        <ul class="check-list" id="detailHighlights"></ul>
+
+        <div class="permit-note" id="detailPermitNote" style="display:none">
+          <span style="font-size:1.2rem">⚠️</span>
+          <div><strong>Restricted Area Permit required</strong><p id="detailPermitText"></p></div>
+        </div>
+
+        <h2>Vehicle &amp; meal options</h2>
+        <p style="margin-top:-4px;font-size:.9rem">Pick a vehicle type — pricing is shown both with meals included and without.</p>
+        <div class="transport-table">
+          <div class="tt-head"><span>Vehicle type</span><span>Without meals</span><span>With meals</span></div>
+          <div id="detailTransport"></div>
+        </div>
+
+        <h2>Day-by-day itinerary</h2>
+        <div id="detailItinerary"></div>
+
+        <div class="incl-excl">
+          <div>
+            <h3>Inclusions</h3>
+            <ul class="check-list" id="detailInclusions"></ul>
+          </div>
+          <div>
+            <h3>Exclusions</h3>
+            <ul class="cross-list" id="detailExclusions"></ul>
+          </div>
+        </div>
+      </div>
+
+      <aside class="detail-sidebar surface">
+        <span class="lbl">Starting from</span>
+        <span class="price" id="detailPrice"></span>
+        <span class="per">per person · shared vehicle, without meals</span>
+        <a class="btn btn-coral" onclick="showHome('contact')">Book this trip</a>
+        <button class="btn btn-outline" onclick="quickEnquire()">Quick enquiry</button>
+        <ul class="detail-facts" id="detailFacts"></ul>
+      </aside>
+    </div>
+  </section>
+</div>
+
+<div id="pageLogin">
+  <section class="login-wrap">
+    <div class="login-card surface">
+      <div class="login-card__mark">P</div>
+      <h1>Admin Login</h1>
+      <p class="sub2">Viewers don't need an account — this login is only for the Pledge India Tourism team.</p>
+
+      <div class="tab-switch">
+        <button id="tabPasswordBtn" class="active" onclick="switchLoginTab('password')">Username &amp; Password</button>
+        <button id="tabOtpBtn" onclick="switchLoginTab('otp')">Mobile OTP</button>
+      </div>
+
+      <div id="passwordTab">
+        <div class="field">
+          <label>Username</label>
+          <input type="text" id="login-username" placeholder="admin">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="login-password" placeholder="••••••••">
+        </div>
+        <p class="login-error" id="loginError" style="display:none"></p>
+        <button class="btn btn-coral" style="width:100%;justify-content:center" onclick="attemptPasswordLogin()">Log in</button>
+        <p class="login-demo-hint">Demo credentials — Username: <strong>admin</strong> &nbsp;Password: <strong>pledge123</strong></p>
+      </div>
+
+      <div id="otpTab" style="display:none">
+        <div id="otpStep1">
+          <div class="field">
+            <label>Registered mobile number</label>
+            <input type="tel" id="otp-phone" placeholder="+91 98300 12345">
+          </div>
+          <button class="btn btn-coral" style="width:100%;justify-content:center" onclick="sendOtp()">Send OTP</button>
+          <p class="login-demo-hint">This demo has no SMS gateway connected yet, so the OTP is shown on screen instead of texted to you. Once a backend is connected, swap this for a real SMS provider (e.g. MSG91, Twilio).</p>
+        </div>
+        <div id="otpStep2" style="display:none">
+          <div class="otp-banner" id="otpBanner"></div>
+          <div class="field">
+            <label>Enter the 4-digit OTP</label>
+            <input type="text" id="otp-code" maxlength="4" placeholder="1234">
+          </div>
+          <p class="login-error" id="otpError" style="display:none"></p>
+          <button class="btn btn-coral" style="width:100%;justify-content:center" onclick="verifyOtp()">Verify &amp; Log in</button>
+          <p class="login-back" onclick="resendOtpStep()">Use a different number</p>
+        </div>
+      </div>
+
+      <p class="login-back" onclick="showHome()">← Back to homepage</p>
+    </div>
+  </section>
+</div>
+
+<div id="pageAddPackage">
+  <section class="detail-hero" style="height:200px;background:var(--teal-900)">
+    <div class="container detail-hero__inner">
+      <span class="badge">Admin only</span>
+      <h1 id="pkgFormTitle">Add new package</h1>
+      <p id="pkgFormSubtitle">Fill in everything a traveller would see on the package detail page.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="form-panel surface">
+        <h2>Basic details</h2>
+        <div class="form-grid">
+          <div class="field"><label>Package title</label><input type="text" id="np-title" placeholder="e.g. Lachen Valley Explorer"></div>
+          <div class="field"><label>Category</label>
+            <select id="np-category">
+              <option>Hill Station</option><option>Adventure</option><option>Offbeat</option><option>Group Tour</option><option>Pilgrimage</option><option>Family</option>
+            </select>
+          </div>
+          <div class="field"><label>Destination name</label><input type="text" id="np-destination" placeholder="e.g. Lachen, Sikkim"></div>
+          <div class="field"><label>Duration</label><input type="text" id="np-duration" placeholder="e.g. 5 Days / 4 Nights"></div>
+          <div class="field"><label>Group size</label><input type="text" id="np-groupsize" placeholder="e.g. 2-8 people"></div>
+          <div class="field"><label>Starting price (₹ per person)</label><input type="number" id="np-price" min="0" placeholder="9000"></div>
+          <div class="field"><label>Rating (out of 5)</label><input type="number" id="np-rating" step="0.1" min="0" max="5" value="4.5"></div>
+          <div class="field field--checkbox"><label><input type="checkbox" id="np-featured"> Feature on homepage</label></div>
+        </div>
+
+        <h2>Images</h2>
+        <div class="field"><label>Main image URL</label><input type="text" id="np-image" placeholder="https://..."></div>
+        <div class="field"><label>Gallery image URLs (one per line)</label><textarea id="np-gallery" rows="2" placeholder="https://image1.jpg&#10;https://image2.jpg"></textarea></div>
+
+        <h2>Highlights &amp; policy</h2>
+        <div class="field"><label>Highlights (one per line)</label><textarea id="np-highlights" rows="3" placeholder="Sunrise viewpoint&#10;Local homestay dinner"></textarea></div>
+        <div class="form-grid">
+          <div class="field"><label>Inclusions (one per line)</label><textarea id="np-inclusions" rows="3" placeholder="2-night homestay&#10;All meals"></textarea></div>
+          <div class="field"><label>Exclusions (one per line)</label><textarea id="np-exclusions" rows="3" placeholder="Personal expenses"></textarea></div>
+        </div>
+
+        <h2>Vehicle &amp; meal pricing</h2>
+        <p style="font-size:.84rem;margin-top:-8px">Shown to visitors as a price table — shared vs private vehicle, with and without meals.</p>
+        <div class="transport-editor" id="npTransportEditor"></div>
+
+        <h2>Permits</h2>
+        <div class="field field--checkbox"><label><input type="checkbox" id="np-permit" onchange="toggleNpPermitNote()"> Restricted Area Permit required for this trip</label></div>
+        <div class="field" id="npPermitNoteField" style="display:none"><label>Permit note (shown to travellers)</label><textarea id="np-permitnote" rows="2" placeholder="e.g. Requires a Restricted Area Permit, arranged by us."></textarea></div>
+
+        <h2>Itinerary</h2>
+        <div class="itin-editor" id="npItinEditor"></div>
+        <button type="button" class="btn btn-outline" onclick="addNpItinRow()">+ Add day</button>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-outline" onclick="backToPackages()">Cancel</button>
+          <button type="button" class="btn btn-coral" id="pkgFormSubmitBtn" onclick="saveNewPackage()">Add package</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="pageFeed">
+  <section class="feed-hero">
+    <div class="container">
+      <span class="badge">Updates</span>
+      <h1>What's new at Pledge India Tourism</h1>
+      <p>Trip announcements, fresh photos from the road, and season alerts — scroll through the latest below.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container feed-container">
+      <div class="composer surface" id="feedComposer" style="display:none">
+        <h3>Post an update</h3>
+        <textarea id="feed-message" rows="3" placeholder="Share a season alert, a new package, or a photo update…"></textarea>
+        <input type="text" id="feed-image" placeholder="Optional image URL">
+        <button class="btn btn-coral" onclick="postFeedUpdate()">Post update</button>
+      </div>
+
+      <div class="feed-scroll" id="feedScroll"></div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="container foot-grid">
+    <div><div class="nav__logo" style="margin-bottom:10px;color:var(--sand)"><span class="nav__mark">P</span><span class="full">Pledge India Tourism</span></div><p>Your gateway to the hills of North Bengal & Sikkim</p></div>
+    <div><h4>Explore</h4><a onclick="showHome('packages')">Tour Packages</a><a onclick="showHome('about')">About Us</a><a onclick="openFeed()">Updates</a><a onclick="showHome('contact')">Contact</a><a onclick="showLogin()">Admin Login</a></div>
+    <div><h4>Get in touch</h4><p>Sevoke Road, Siliguri, West Bengal</p><p>+91 98300 12345</p><p>riyadatascientist@gmail.com</p></div>
+  </div>
+  <div class="container foot-bottom"><span>© 2026 Pledge India Tourism. All rights reserved.</span><span>Static preview · Angular build in the delivered zip</span></div>
+</footer>
+
+<script>
+let isAdmin = false;
+let pendingOtp = null;
+let pendingOtpPhone = '';
+let QUERIES = [];
+let npItinerary = [{ day:1, title:'', desc:'' }];
+const ADMIN_EMAIL = 'riyadatascientist@gmail.com';
+
+const DESTINATIONS = [
+  { id:'d1', name:'Darjeeling', country:'West Bengal', image:'https://images.unsplash.com/photo-1721070025492-26368db1706f?auto=format&fit=crop&w=800&q=80', count:2 },
+  { id:'d2', name:'Gangtok', country:'Sikkim', image:'https://images.unsplash.com/photo-1668350202638-046c51e1d4de?auto=format&fit=crop&w=800&q=80', count:2 },
+  { id:'d3', name:'Rishikhola', country:'West Bengal', image:'https://images.unsplash.com/photo-1664212008987-705d2ec758e7?auto=format&fit=crop&w=800&q=80', count:1 },
+  { id:'d4', name:'Zuluk', country:'Sikkim', image:'https://images.unsplash.com/photo-1685428081741-a9710684f7ef?auto=format&fit=crop&w=800&q=80', count:2 },
+  { id:'d5', name:'Kalimpong', country:'West Bengal', image:'https://images.unsplash.com/photo-1617469165885-0db8294c3232?auto=format&fit=crop&w=800&q=80', count:1 }
+];
+
+const PACKAGES = [
+  {
+    id:'p1', title:'Darjeeling Hills & Tea Trails', destination:'Darjeeling, West Bengal', category:'Hill Station',
+    image:'https://images.unsplash.com/photo-1721070025492-26368db1706f?auto=format&fit=crop&w=1000&q=80',
+    gallery:['https://images.unsplash.com/photo-1721070025492-26368db1706f?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1661970072086-b7b1c3d7c787?auto=format&fit=crop&w=1000&q=80'],
+    duration:'4 Days / 3 Nights', price:7500, rating:4.7, reviews:184, groupSize:'2-10 people',
+    highlights:['Tiger Hill sunrise over Kanchenjunga','Darjeeling Himalayan Railway (Toy Train) joy ride','Happy Valley Tea Estate walk & tasting','Peace Pagoda and Batasia Loop'],
+    itinerary:[
+      {day:1,title:'Arrival in Darjeeling',desc:'Pick-up from NJP / Bagdogra, drive up to Darjeeling, evening at Mall Road / Chowrasta.'},
+      {day:2,title:'Tiger Hill Sunrise & Local Sightseeing',desc:'Early morning Tiger Hill sunrise over Kanchenjunga, Ghoom Monastery, Batasia Loop, zoo.'},
+      {day:3,title:'Tea Garden & Toy Train',desc:'Happy Valley Tea Estate walk & tasting, short Toy Train joy ride, free evening at Chowrasta.'},
+      {day:4,title:'Departure',desc:'Breakfast at the hotel, drive back to NJP / Bagdogra.'}
+    ],
+    inclusions:['3-night hotel stay on double sharing','Daily breakfast and dinner','All sightseeing as per itinerary','Toy train joy ride ticket','NJP/Bagdogra pick-up and drop'],
+    exclusions:['Lunch (available on direct payment)','Monastery/zoo entry fees not covered by permit','Personal expenses and tips'],
+    transport:[
+      {type:'Shared Vehicle (Sumo / Bolero, pooled)', without:7500, with:9500, note:'Seats shared with other guests, subject to group formation'},
+      {type:'Private Vehicle (exclusive Innova / Xylo)', without:13500, with:15500, note:'Vehicle reserved only for your group'}
+    ],
+    permit:false, permitNote:''
+  },
+  {
+    id:'p2', title:'Gangtok & Tsomgo Lake Discovery', destination:'Gangtok, Sikkim', category:'Hill Station',
+    image:'https://images.unsplash.com/photo-1668350202638-046c51e1d4de?auto=format&fit=crop&w=1000&q=80',
+    gallery:['https://images.unsplash.com/photo-1668350202638-046c51e1d4de?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1668350202638-046c51e1d4de?auto=format&fit=crop&w=1000&q=80'],
+    duration:'5 Days / 4 Nights', price:9800, rating:4.8, reviews:221, groupSize:'2-10 people',
+    highlights:['Tsomgo (Changu) Lake at 12,400 ft','Baba Harbhajan Singh Memorial','Rumtek Monastery visit','MG Marg evening stroll and food walk'],
+    itinerary:[
+      {day:1,title:'Arrival in Gangtok',desc:'Pick-up from NJP / Bagdogra, scenic drive via Teesta river, evening free at MG Marg.'},
+      {day:2,title:'Tsomgo Lake & Baba Mandir',desc:'Full-day permit excursion to Tsomgo Lake and Baba Harbhajan Singh Memorial.'},
+      {day:3,title:'Monastery & City Tour',desc:'Rumtek Monastery, Ganesh Tok, Hanuman Tok, Gangtok Ropeway.'},
+      {day:4,title:'Leisure Day in Gangtok',desc:'Free day for MG Marg, local markets, or an add-on adventure activity.'},
+      {day:5,title:'Departure',desc:'Breakfast and drive back to NJP / Bagdogra.'}
+    ],
+    inclusions:['4-night hotel stay on double sharing','Daily breakfast and dinner','Tsomgo Lake permit assistance','All sightseeing as per itinerary','NJP/Bagdogra pick-up and drop'],
+    exclusions:['Lunch','Nathula Pass excursion (paid add-on, permit dependent)','Personal expenses'],
+    transport:[
+      {type:'Shared Vehicle (Sumo / Bolero, pooled)', without:9800, with:12200, note:'Tsomgo Lake day uses a permit-approved shared vehicle'},
+      {type:'Private Vehicle (exclusive Innova / Xylo)', without:16800, with:19200, note:'Vehicle reserved only for your group for all 5 days'}
+    ],
+    permit:true, permitNote:'Tsomgo Lake requires a Restricted Area Permit — we arrange this for you, just share original ID proof copies 2 days before travel.'
+  },
+  {
+    id:'p3', title:'Rishikhola River Camping Retreat', destination:'Rishikhola, West Bengal', category:'Offbeat',
+    image:'https://images.unsplash.com/photo-1664212008987-705d2ec758e7?auto=format&fit=crop&w=1000&q=80',
+    gallery:['https://images.unsplash.com/photo-1664212008987-705d2ec758e7?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1664212008987-705d2ec758e7?auto=format&fit=crop&w=1000&q=80'],
+    duration:'3 Days / 2 Nights', price:5200, rating:4.6, reviews:97, groupSize:'2-8 people',
+    highlights:['Riverside camping on the Rishi Khola','Bamboo raft ride (seasonal)','Bonfire and local Nepali cuisine dinner','Short forest trek to nearby viewpoints'],
+    itinerary:[
+      {day:1,title:'Arrival & Riverside Camp Check-in',desc:'Drive from NJP through Kalimpong hills, check into riverside tents/homestay, evening bonfire.'},
+      {day:2,title:'River Activities & Village Walk',desc:'Morning bamboo raft ride (seasonal), short trek, guided village walk and orange orchards.'},
+      {day:3,title:'Departure',desc:'Breakfast by the river, drive back to NJP / Siliguri.'}
+    ],
+    inclusions:['2-night stay in riverside tents or homestay','All meals (breakfast, lunch, dinner)','Bonfire and evening snacks','Guided village walk','NJP/Siliguri pick-up and drop'],
+    exclusions:['Bamboo rafting charges if run outside season dates','Personal expenses'],
+    transport:[
+      {type:'Shared Vehicle (Sumo / Bolero, pooled)', without:5200, with:6800, note:'Most popular option for solo and small-group travellers'},
+      {type:'Private Vehicle (exclusive Innova / Xylo)', without:8600, with:10200, note:'Recommended for families and groups of 4+'}
+    ],
+    permit:false, permitNote:''
+  },
+  {
+    id:'p4', title:'Zuluk Silk Route Expedition', destination:'Zuluk, Sikkim', category:'Adventure',
+    image:'https://images.unsplash.com/photo-1685428081741-a9710684f7ef?auto=format&fit=crop&w=1000&q=80',
+    gallery:['https://images.unsplash.com/photo-1685428081741-a9710684f7ef?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1685428081741-a9710684f7ef?auto=format&fit=crop&w=1000&q=80'],
+    duration:'4 Days / 3 Nights', price:9200, rating:4.9, reviews:143, groupSize:'2-8 people',
+    highlights:['32 hairpin bends of the old Silk Route','Thambi View Point sunrise','Kupup Lake (Elephant Lake) and Bhaley Dhunga','Authentic homestay in a Zuluk village house'],
+    itinerary:[
+      {day:1,title:'Arrival & Drive to Zuluk',desc:'Pick-up from NJP / Bagdogra, drive via Rongli to Zuluk, homestay check-in, village walk.'},
+      {day:2,title:'Thambi View Point & Silk Route Loops',desc:'Sunrise at Thambi View Point over the zigzag Silk Route road, explore Lungthung.'},
+      {day:3,title:'Kupup Lake & Bhaley Dhunga',desc:'Excursion to Kupup (Elephant) Lake and Bhaley Dhunga viewpoint (permit-dependent).'},
+      {day:4,title:'Departure',desc:'Breakfast at the homestay, drive back to NJP / Bagdogra.'}
+    ],
+    inclusions:['3-night homestay accommodation','All meals (breakfast, lunch, dinner)','Restricted Area Permit assistance','All sightseeing as per itinerary','NJP/Bagdogra pick-up and drop'],
+    exclusions:['Nathula Pass extension (paid add-on)','Personal expenses'],
+    transport:[
+      {type:'Shared Vehicle (Sumo / Bolero, pooled)', without:9200, with:11500, note:"Homestay meals often included even on the 'without meals' plan — ask us"},
+      {type:'Private Vehicle (exclusive Innova / Xylo)', without:15200, with:17500, note:'Recommended for photography groups needing flexible stops'}
+    ],
+    permit:true, permitNote:'Zuluk falls under a Restricted Area — we arrange the permit, just share original ID proof copies (Indian nationals only) 2-3 days before travel.'
+  },
+  {
+    id:'p5', title:'Kalimpong Monastery & Garden Trail', destination:'Kalimpong, West Bengal', category:'Hill Station',
+    image:'https://images.unsplash.com/photo-1617469165885-0db8294c3232?auto=format&fit=crop&w=1000&q=80',
+    gallery:['https://images.unsplash.com/photo-1617469165885-0db8294c3232?auto=format&fit=crop&w=1000&q=80'],
+    duration:'3 Days / 2 Nights', price:5800, rating:4.5, reviews:68, groupSize:'2-10 people',
+    highlights:['Durpin Monastery','Nurseries and orchid gardens tour','Deolo Hill viewpoint','Local market and handicraft shopping'],
+    itinerary:[
+      {day:1,title:'Arrival in Kalimpong',desc:'Pick-up from NJP, check-in, evening at the local market.'},
+      {day:2,title:'Monasteries & Gardens',desc:"Durpin Monastery, Dr. Graham's Home, orchid and cactus nurseries, Deolo Hill viewpoint."},
+      {day:3,title:'Departure',desc:'Breakfast at the hotel, drive back to NJP.'}
+    ],
+    inclusions:['2-night hotel stay on double sharing','Daily breakfast and dinner','All sightseeing as per itinerary','NJP pick-up and drop'],
+    exclusions:['Lunch','Garden/nursery entry tickets if applicable','Personal expenses'],
+    transport:[
+      {type:'Shared Vehicle (Sumo / Bolero, pooled)', without:5800, with:7200, note:'Good value for couples and solo travellers'},
+      {type:'Private Vehicle (exclusive Innova / Xylo)', without:9800, with:11500, note:'Ideal for families travelling with elders or small children'}
+    ],
+    permit:false, permitNote:''
+  },
+  {
+    id:'p6', title:'Darjeeling – Gangtok – Zuluk Grand Circuit', destination:'Darjeeling, Gangtok & Zuluk', category:'Group Tour',
+    image:'https://images.unsplash.com/photo-1668350202638-046c51e1d4de?auto=format&fit=crop&w=1000&q=80',
+    gallery:['https://images.unsplash.com/photo-1668350202638-046c51e1d4de?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1721070025492-26368db1706f?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1685428081741-a9710684f7ef?auto=format&fit=crop&w=1000&q=80'],
+    duration:'8 Days / 7 Nights', price:18500, rating:4.9, reviews:112, groupSize:'4-12 people',
+    highlights:['Tiger Hill sunrise in Darjeeling','Tsomgo Lake and Rumtek Monastery in Gangtok','32 hairpin bends of the Zuluk Silk Route','One trip covering the best of North Bengal and Sikkim'],
+    itinerary:[
+      {day:1,title:'Arrival in Darjeeling',desc:'Pick-up from NJP/Bagdogra, drive up to Darjeeling, evening at Mall Road.'},
+      {day:2,title:'Darjeeling Sightseeing',desc:'Tiger Hill sunrise, Batasia Loop, tea garden visit, toy train joy ride.'},
+      {day:3,title:'Darjeeling to Gangtok',desc:'Scenic drive to Gangtok via Teesta valley, evening free at MG Marg.'},
+      {day:4,title:'Tsomgo Lake & Baba Mandir',desc:'Full-day permit excursion to Tsomgo Lake and Baba Harbhajan Singh Memorial.'},
+      {day:5,title:'Gangtok Monastery Tour',desc:'Rumtek Monastery, Ganesh Tok, Hanuman Tok, Gangtok Ropeway.'},
+      {day:6,title:'Gangtok to Zuluk',desc:'Drive via Rongli to Zuluk, homestay check-in, evening village walk.'},
+      {day:7,title:'Zuluk Silk Route Exploration',desc:'Thambi View Point sunrise, Kupup Lake, Bhaley Dhunga, the zigzag Silk Route road.'},
+      {day:8,title:'Departure',desc:'Breakfast at the homestay, drive back to NJP / Bagdogra.'}
+    ],
+    inclusions:['7-night stay (hotel in Darjeeling & Gangtok, homestay in Zuluk)','All meals from Day 3 onward, breakfast on Days 1-2','All permits for Tsomgo Lake and Zuluk arranged','All sightseeing as per itinerary','NJP/Bagdogra pick-up and drop'],
+    exclusions:['Lunch on Days 1-2','Nathula Pass extension (paid add-on)','Personal expenses and tips'],
+    transport:[
+      {type:'Shared Vehicle (Sumo / Bolero, pooled)', without:18500, with:23500, note:'Vehicle changes at each stop per local permit rules, still shared'},
+      {type:'Private Vehicle (exclusive Innova / Xylo)', without:29500, with:34500, note:'Same private vehicle and driver for the full 8-day circuit where allowed'}
+    ],
+    permit:true, permitNote:'Both Tsomgo Lake and Zuluk require Restricted Area Permits — fully arranged by us, share original ID proof copies (Indian nationals only) at least 3 days before travel.'
+  }
+];
+
+const TESTIMONIALS = [
+  { name:'Subhadeep Ghosh', trip:'Darjeeling Hills & Tea Trails', avatar:'https://i.pravatar.cc/100?img=12', rating:5, comment:'Tiger Hill sunrise was worth waking up at 4 AM for. Our driver knew every viewpoint and the homestay food was fantastic.' },
+  { name:'Ananya Chatterjee', trip:'Gangtok & Tsomgo Lake Discovery', avatar:'https://i.pravatar.cc/100?img=32', rating:5, comment:'Permit paperwork for Tsomgo Lake was handled entirely by the team — one less thing to worry about on a family trip.' },
+  { name:'Rohit Pradhan', trip:'Zuluk Silk Route Expedition', avatar:'https://i.pravatar.cc/100?img=15', rating:5, comment:'The homestay in Zuluk and the sunrise at Thambi View Point were unreal. Loved choosing a private car for our photo stops.' }
+];
+
+let FEED_POSTS = [
+  { id:'post3', author:'Pledge India Tourism', message:'Zuluk homestays are fully booked for the Nov 10-20 window already — if you are planning the Silk Route for peak season, lock your dates early!', image:'', time:Date.now()-1000*60*60*6, likes:14 },
+  { id:'post2', author:'Pledge India Tourism', message:"Fresh batch photos from last week's Gangtok group at Tsomgo Lake — clear skies, and the yaks were out in full force. 📸", image:'https://images.unsplash.com/photo-1668350202638-046c51e1d4de?auto=format&fit=crop&w=900&q=80', time:Date.now()-1000*60*60*30, likes:22 },
+  { id:'post1', author:'Pledge India Tourism', message:'New package alert: Darjeeling Hills & Tea Trails is now bookable for the winter season. Toy train joy rides run daily, weather permitting.', image:'', time:Date.now()-1000*60*60*72, likes:31 }
+];
+</script>
+<script>
+function fmt(n){ return Number(n||0).toLocaleString('en-IN'); }
+function esc(s){ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+
+function renderDestinations(){
+  document.getElementById('destGrid').innerHTML = DESTINATIONS.map(d => `
+    <div class="dest-card" onclick="showHome('packages')">
+      <img src="${d.image}" alt="${d.name}">
+      <div class="ov"><h3>${d.name}</h3><span>${d.count} package${d.count>1?'s':''}</span></div>
+    </div>`).join('');
+}
+
+function renderPackages(){
+  let html = PACKAGES.map(p => `
+    <div class="ticket">
+      <div class="ticket__img">
+        <img src="${p.image}" alt="${esc(p.title)}">
+        <span class="ticket__cat">${esc(p.category)}</span>
+        ${p.permit ? '<span class="ticket__permit">Permit needed</span>' : ''}
+      </div>
+      <div class="ticket__body">
+        <h3>${esc(p.title)}</h3>
+        <p class="ticket__dest">${esc(p.destination)}</p>
+        <div class="ticket__meta"><span>${esc(p.duration)}</span><span class="rate">★ ${p.rating} (${p.reviews})</span></div>
+      </div>
+      <div class="ticket__stub">
+        <span class="notch l"></span><span class="notch r"></span>
+        <div><span class="price-lbl">Starts at</span><span class="price-val">₹${fmt(p.price)}</span></div>
+        <button class="cta-link" onclick="viewPackage('${p.id}')">View details →</button>
+      </div>
+      ${isAdmin ? `<div class="ticket__admin-actions"><button class="btn btn-outline btn-sm" onclick="editPackage('${p.id}')">Edit</button><button class="btn btn-outline btn-sm" style="color:var(--coral-600);border-color:var(--coral)" onclick="deletePackageAdmin('${p.id}')">Delete</button></div>` : ''}
+    </div>`).join('');
+  html += `<div class="admin-add-card" id="addCard" style="display:${isAdmin?'flex':'none'}" onclick="openAddPackageForm()"><span style="font-size:2rem">＋</span><span>Add new package</span></div>`;
+  document.getElementById('pkgGrid').innerHTML = html;
+
+  document.getElementById('cf-package').innerHTML =
+    '<option value="">General enquiry</option>' + PACKAGES.map(p => `<option>${esc(p.title)}</option>`).join('');
+}
+
+function renderTestimonials(){
+  document.getElementById('testGrid').innerHTML = TESTIMONIALS.map(t => `
+    <div class="test-card surface">
+      <p class="stars">${'★'.repeat(t.rating)}${'☆'.repeat(5-t.rating)}</p>
+      <blockquote>"${esc(t.comment)}"</blockquote>
+      <div class="author"><img src="${t.avatar}"><div><strong>${esc(t.name)}</strong><span>${esc(t.trip)}</span></div></div>
+    </div>`).join('');
+}
+
+function feedTimeAgo(ts){
+  const mins = Math.floor((Date.now() - ts) / 60000);
+  if(mins < 1) return 'just now';
+  if(mins < 60) return mins + 'm ago';
+  const hours = Math.floor(mins / 60);
+  if(hours < 24) return hours + 'h ago';
+  return Math.floor(hours / 24) + 'd ago';
+}
+
+function renderFeed(){
+  document.getElementById('feedComposer').style.display = isAdmin ? 'block' : 'none';
+
+  const sorted = FEED_POSTS.slice().sort((a,b) => b.time - a.time);
+  if(!sorted.length){
+    document.getElementById('feedScroll').innerHTML = '<div class="feed-empty surface"><p>No updates yet. Check back soon.</p></div>';
+    return;
+  }
+  document.getElementById('feedScroll').innerHTML = sorted.map(p => `
+    <div class="feed-post surface">
+      <div class="feed-post__head">
+        <div class="feed-post__avatar">P</div>
+        <div><strong>${esc(p.author)}</strong><span>${feedTimeAgo(p.time)}</span></div>
+        ${isAdmin ? `<button class="feed-post__delete" onclick="deleteFeedPost('${p.id}')" aria-label="Delete update">✕</button>` : ''}
+      </div>
+      <p class="feed-post__message">${esc(p.message)}</p>
+      ${p.image ? `<img class="feed-post__image" src="${p.image}" alt="">` : ''}
+      <div class="feed-post__actions">
+        <button onclick="likeFeedPost('${p.id}')">👍 Like (${p.likes})</button>
+      </div>
+    </div>`).join('');
+}
+
+function openFeed(){
+  renderFeed();
+  goToPage('pageFeed');
+}
+
+function postFeedUpdate(){
+  const message = document.getElementById('feed-message').value.trim();
+  const image = document.getElementById('feed-image').value.trim();
+  if(!message){ alert('Write something to post.'); return; }
+  FEED_POSTS.unshift({ id:'post_'+Date.now(), author:'Pledge India Tourism', message, image, time:Date.now(), likes:0 });
+  document.getElementById('feed-message').value = '';
+  document.getElementById('feed-image').value = '';
+  renderFeed();
+}
+
+function likeFeedPost(id){
+  const post = FEED_POSTS.find(p => p.id === id);
+  if(post){ post.likes++; renderFeed(); }
+}
+
+function deleteFeedPost(id){
+  if(!confirm('Remove this update?')) return;
+  FEED_POSTS = FEED_POSTS.filter(p => p.id !== id);
+  renderFeed();
+}
+
+function viewPackage(id){
+  const p = PACKAGES.find(x => x.id === id);
+  if(!p) return;
+
+  document.getElementById('detailHeroBg').style.backgroundImage =
+    `linear-gradient(180deg, rgba(14,46,46,.1), rgba(14,46,46,.85)), url('${p.image}')`;
+  document.getElementById('detailCategory').textContent = p.category;
+  document.getElementById('detailTitle').textContent = p.title;
+  document.getElementById('detailSubtitle').textContent = `${p.destination} · ${p.duration}`;
+
+  document.getElementById('detailGallery').innerHTML = p.gallery.map(g => `<img src="${g}" alt="">`).join('');
+
+  document.getElementById('detailOverview').textContent =
+    `Join our ${p.duration.toLowerCase()} journey through ${p.destination}, designed for groups of ${p.groupSize}. Rated ${p.rating} out of 5 by ${p.reviews} past travellers.`;
+
+  document.getElementById('detailHighlights').innerHTML = p.highlights.map(h => `<li>${esc(h)}</li>`).join('');
+
+  const permitBox = document.getElementById('detailPermitNote');
+  if(p.permit){
+    permitBox.style.display = 'flex';
+    document.getElementById('detailPermitText').textContent = p.permitNote;
+  } else {
+    permitBox.style.display = 'none';
+  }
+
+  document.getElementById('detailTransport').innerHTML = p.transport.map(t => `
+    <div class="tt-row">
+      <div class="tt-type"><strong>${esc(t.type)}</strong><span>${esc(t.note)}</span></div>
+      <span class="tt-price">₹${fmt(t.without)}<small style="font-weight:500;color:var(--ink-soft);font-size:.7rem"> /person</small></span>
+      <span class="tt-price meals">₹${fmt(t.with)}<small style="font-weight:500;color:var(--ink-soft);font-size:.7rem"> /person</small></span>
+    </div>`).join('');
+
+  document.getElementById('detailItinerary').innerHTML = p.itinerary.map(d => `
+    <div class="itin-day">
+      <div class="itin-badge">Day ${d.day}</div>
+      <div><h3>${esc(d.title)}</h3><p>${esc(d.desc)}</p></div>
+    </div>`).join('');
+
+  document.getElementById('detailInclusions').innerHTML = p.inclusions.map(i => `<li>${esc(i)}</li>`).join('');
+  document.getElementById('detailExclusions').innerHTML = p.exclusions.map(e => `<li>${esc(e)}</li>`).join('');
+
+  document.getElementById('detailPrice').textContent = `₹${fmt(p.price)}`;
+
+  document.getElementById('detailFacts').innerHTML = `
+    <li><strong>Duration</strong><span>${esc(p.duration)}</span></li>
+    <li><strong>Group size</strong><span>${esc(p.groupSize)}</span></li>
+    <li><strong>Category</strong><span>${esc(p.category)}</span></li>
+    <li><strong>Rating</strong><span>★ ${p.rating} (${p.reviews} reviews)</span></li>`;
+
+  goToPage('pageDetail');
+}
+
+function backToPackages(){
+  goToPage('pageHome');
+  document.getElementById('packages').scrollIntoView();
+}
+
+function deletePackageAdmin(id){
+  if(!confirm('Remove this package? This only affects this preview session.')) return;
+  const idx = PACKAGES.findIndex(p => p.id === id);
+  if(idx > -1) PACKAGES.splice(idx, 1);
+  renderPackages();
+}
+
+function quickEnquire(){
+  alert('Enquiry sent for this package! (In the real app this notifies the admin instantly, same as the Contact form.)');
+}
+
+function goToPage(pageId){
+  ['pageHome','pageDetail','pageLogin','pageAddPackage','pageFeed'].forEach(id => {
+    document.getElementById(id).style.display = (id === pageId) ? 'block' : 'none';
+  });
+  closeMenu();
+  window.scrollTo(0,0);
+}
+
+function showHome(anchor){
+  goToPage('pageHome');
+  if(anchor){
+    const el = document.getElementById(anchor);
+    if(el) el.scrollIntoView({behavior:'smooth'});
+  }
+}
+
+function toggleMenu(){ document.getElementById('navLinks').classList.toggle('open'); }
+function closeMenu(){ document.getElementById('navLinks').classList.remove('open'); }
+
+function showLogin(){
+  document.getElementById('loginError').style.display = 'none';
+  document.getElementById('otpError').style.display = 'none';
+  goToPage('pageLogin');
+}
+
+function switchLoginTab(tab){
+  const pwd = tab === 'password';
+  document.getElementById('tabPasswordBtn').classList.toggle('active', pwd);
+  document.getElementById('tabOtpBtn').classList.toggle('active', !pwd);
+  document.getElementById('passwordTab').style.display = pwd ? 'block' : 'none';
+  document.getElementById('otpTab').style.display = pwd ? 'none' : 'block';
+}
+
+function attemptPasswordLogin(){
+  const u = document.getElementById('login-username').value.trim();
+  const p = document.getElementById('login-password').value;
+  const err = document.getElementById('loginError');
+  if(u === 'admin' && p === 'pledge123'){
+    err.style.display = 'none';
+    loginSuccess();
+  } else {
+    err.textContent = 'Incorrect username or password. Try the demo credentials below.';
+    err.style.display = 'block';
+  }
+}
+
+function sendOtp(){
+  const phone = document.getElementById('otp-phone').value.trim();
+  if(!phone){ alert('Enter a mobile number first.'); return; }
+  pendingOtp = String(Math.floor(1000 + Math.random() * 9000));
+  pendingOtpPhone = phone;
+  document.getElementById('otpStep1').style.display = 'none';
+  document.getElementById('otpStep2').style.display = 'block';
+  document.getElementById('otpBanner').innerHTML =
+    `Demo OTP for <strong>${esc(phone)}</strong>: <strong style="font-size:1.1rem">${pendingOtp}</strong> <br><span style="opacity:.8">(shown here only because no SMS gateway is connected yet)</span>`;
+  document.getElementById('otp-code').value = '';
+  document.getElementById('otpError').style.display = 'none';
+}
+
+function resendOtpStep(){
+  document.getElementById('otpStep1').style.display = 'block';
+  document.getElementById('otpStep2').style.display = 'none';
+}
+
+function verifyOtp(){
+  const code = document.getElementById('otp-code').value.trim();
+  const err = document.getElementById('otpError');
+  if(code && code === pendingOtp){
+    err.style.display = 'none';
+    loginSuccess();
+  } else {
+    err.textContent = 'Incorrect OTP. Check the code shown above and try again.';
+    err.style.display = 'block';
+  }
+}
+
+function loginSuccess(){
+  isAdmin = true;
+  applyAuthUI();
+  showHome();
+  toastAlert('Logged in as Admin.');
+}
+
+function logout(){
+  isAdmin = false;
+  document.getElementById('bellPanel').style.display = 'none';
+  applyAuthUI();
+  showHome();
+}
+
+function applyAuthUI(){
+  document.getElementById('bellWrap').style.display = isAdmin ? 'grid' : 'none';
+  document.getElementById('manageLink').style.display = isAdmin ? 'inline' : 'none';
+  document.getElementById('adminPill').style.display = isAdmin ? 'inline-block' : 'none';
+  document.getElementById('loginLink').style.display = isAdmin ? 'none' : 'inline-flex';
+  document.getElementById('logoutBtn').style.display = isAdmin ? 'inline-flex' : 'none';
+  document.getElementById('mobileRolePill').style.display = isAdmin ? 'inline-block' : 'none';
+  document.getElementById('mobileLoginBtn').style.display = isAdmin ? 'none' : 'inline-flex';
+  document.getElementById('mobileLogoutBtn').style.display = isAdmin ? 'inline-flex' : 'none';
+  renderPackages();
+}
+
+function toastAlert(msg){
+  const el = document.createElement('div');
+  el.textContent = msg;
+  el.style.cssText = 'position:fixed;top:16px;right:16px;background:var(--teal-900);color:var(--sand);padding:12px 18px;border-radius:8px;box-shadow:var(--shadow);border-left:4px solid var(--coral);z-index:200;font-size:.88rem;max-width:280px';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 3500);
+}
+
+function renderBellPanel(){
+  const panel = document.getElementById('bellPanel');
+  if(!QUERIES.length){
+    panel.innerHTML = `<div class="bell-panel__head">Notifications</div><div class="bell-panel__empty">No enquiries yet. New Contact form submissions will show up here with full details.</div>`;
+    return;
+  }
+  panel.innerHTML = `<div class="bell-panel__head">Notifications <span style="font-weight:400;color:var(--ink-soft)">(${QUERIES.length})</span></div>
+    <div class="bell-panel__list">
+      ${QUERIES.slice().reverse().map(q => `
+        <div class="bell-panel__item">
+          <div class="bell-panel__row"><b>Name</b><span>${esc(q.name)}</span></div>
+          <div class="bell-panel__row"><b>Email</b><span>${esc(q.email)}</span></div>
+          <div class="bell-panel__row"><b>Phone</b><span>${esc(q.phone || 'Not provided')}</span></div>
+          <div class="bell-panel__row"><b>Package</b><span>${esc(q.pkg || 'General enquiry')}</span></div>
+          <div class="bell-panel__msg">${esc(q.message)}</div>
+          <span class="bell-panel__time">${q.time}</span>
+        </div>`).join('')}
+    </div>`;
+}
+
+function toggleBell(){
+  const panel = document.getElementById('bellPanel');
+  const open = panel.style.display === 'block';
+  if(open){
+    panel.style.display = 'none';
+  } else {
+    renderBellPanel();
+    panel.style.display = 'block';
+    document.getElementById('bellCount').textContent = '0';
+  }
+}
+
+function sendContact(){
+  const name = document.getElementById('cf-name').value.trim();
+  const email = document.getElementById('cf-email').value.trim();
+  const phone = document.getElementById('cf-phone').value.trim();
+  const pkg = document.getElementById('cf-package').value;
+  const message = document.getElementById('cf-message').value.trim();
+
+  if(!name || !email || !message){
+    alert('Please fill in your name, email, and message.');
+    return;
+  }
+
+  const now = new Date();
+  const query = { name, email, phone, pkg, message, time: now.toLocaleString() };
+  QUERIES.push(query);
+
+  const currentCount = parseInt(document.getElementById('bellCount').textContent || '0');
+  document.getElementById('bellCount').textContent = currentCount + 1;
+  if(document.getElementById('bellPanel').style.display === 'block') renderBellPanel();
+
+  document.getElementById('emailReceipt').innerHTML =
+    '<div class="er-head">📧 Enquiry received</div>' +
+    '<div class="er-row"><b>From</b><span>' + esc(name) + ' &lt;' + esc(email) + '&gt;</span></div>' +
+    '<div class="er-row"><b>Sent</b><span>' + query.time + '</span></div>' +
+    '<div class="er-row"><b>Phone</b><span>' + esc(phone || 'Not provided') + '</span></div>' +
+    '<div class="er-row"><b>Package</b><span>' + esc(pkg || 'General enquiry') + '</span></div>' +
+    '<div class="er-row"><b>Message</b><span>' + esc(message) + '</span></div>';
+
+  document.getElementById('contactFormView').style.display = 'none';
+  document.getElementById('contactThanksView').style.display = 'block';
+
+  sendEmailAutomatically({ name, email, phone, pkg, message });
+}
+
+/**
+ * Sends the enquiry straight to the admin inbox with no click required from
+ * the visitor, using EmailJS (a free service that lets a static, backend-less
+ * page trigger real emails). This is the smallest amount of setup that makes
+ * fully automatic sending possible from a page with no server at all:
+ *
+ *   1. Create a free account at https://www.emailjs.com
+ *   2. Email Services -> Add a service (e.g. connect your Gmail) -> copy the Service ID
+ *   3. Email Templates -> create a template with variables:
+ *      {{from_name}} {{from_email}} {{phone}} {{package}} {{message}}
+ *      and set "To email" to riyadatascientist@gmail.com -> copy the Template ID
+ *   4. Account -> API Keys -> copy the Public Key
+ *   5. Paste all three into the EMAILJS_* constants below.
+ *
+ * Until those three values are filled in, this function safely skips the
+ * network call (the enquiry is still saved above and visible to the admin
+ * in-app) instead of throwing an error.
+ */
+const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+const EMAILJS_READY = EMAILJS_SERVICE_ID !== 'YOUR_SERVICE_ID'
+  && EMAILJS_TEMPLATE_ID !== 'YOUR_TEMPLATE_ID'
+  && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY';
+
+function sendEmailAutomatically(data){
+  const statusEl = document.getElementById('sendStatusText');
+
+  if(!EMAILJS_READY || typeof emailjs === 'undefined'){
+    console.warn('[EmailJS not configured] Add your Service ID / Template ID / Public Key near sendEmailAutomatically() to make Send trigger a real automatic email. Until then, enquiries are still saved and visible to the admin here in the app.');
+    if(statusEl) statusEl.textContent = 'The admin has been notified in the bell icon. (Automatic email delivery turns on once EmailJS keys are added — see the code comments.)';
+    return;
+  }
+
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+    from_name: data.name,
+    from_email: data.email,
+    phone: data.phone || 'Not provided',
+    package: data.pkg || 'General enquiry',
+    message: data.message,
+  }, EMAILJS_PUBLIC_KEY).then(() => {
+    if(statusEl) statusEl.textContent = 'Emailed automatically to our team — no further action needed.';
+  }).catch((err) => {
+    console.error('EmailJS send failed:', err);
+    if(statusEl) statusEl.textContent = 'Saved, but the automatic email could not be sent just now. The admin can still see it in the app.';
+  });
+}
+
+function resetContact(){
+  document.getElementById('contactFormView').style.display = 'block';
+  document.getElementById('contactThanksView').style.display = 'none';
+  ['cf-name','cf-email','cf-phone','cf-message'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('cf-package').value = '';
+}
+
+function defaultTransportRows(){
+  return [
+    { type:'Shared Vehicle (Sumo / Bolero, pooled)', without:0, with:0, note:'' },
+    { type:'Private Vehicle (exclusive Innova / Xylo)', without:0, with:0, note:'' }
+  ];
+}
+let npTransport = defaultTransportRows();
+
+function renderNpTransport(){
+  document.getElementById('npTransportEditor').innerHTML = npTransport.map((t,i) => `
+    <div class="transport-editor__row">
+      <div class="field"><label>Vehicle type</label><input type="text" value="${esc(t.type)}" oninput="npTransport[${i}].type=this.value"></div>
+      <div class="field"><label>Price without meals (₹)</label><input type="number" min="0" value="${t.without}" oninput="npTransport[${i}].without=this.value"></div>
+      <div class="field"><label>Price with meals (₹)</label><input type="number" min="0" value="${t.with}" oninput="npTransport[${i}].with=this.value"></div>
+      <div class="field"><label>Note</label><input type="text" value="${esc(t.note)}" oninput="npTransport[${i}].note=this.value"></div>
+    </div>`).join('');
+}
+
+function renderNpItinerary(){
+  document.getElementById('npItinEditor').innerHTML = npItinerary.map((d,i) => `
+    <div class="itin-editor__row">
+      <span class="itin-editor__day">Day ${d.day}</span>
+      <input type="text" placeholder="Title" value="${esc(d.title)}" oninput="npItinerary[${i}].title=this.value">
+      <input type="text" placeholder="Description" value="${esc(d.desc)}" oninput="npItinerary[${i}].desc=this.value">
+      <button type="button" class="itin-editor__remove" onclick="removeNpItinRow(${i})">✕</button>
+    </div>`).join('');
+}
+
+function addNpItinRow(){
+  npItinerary.push({ day: npItinerary.length + 1, title:'', desc:'' });
+  renderNpItinerary();
+}
+function removeNpItinRow(i){
+  npItinerary.splice(i,1);
+  npItinerary = npItinerary.map((d,idx) => ({ ...d, day: idx+1 }));
+  renderNpItinerary();
+}
+
+function toggleNpPermitNote(){
+  document.getElementById('npPermitNoteField').style.display = document.getElementById('np-permit').checked ? 'block' : 'none';
+}
+
+let editingPackageId = null;
+
+function setPkgFormMode(isEdit){
+  document.getElementById('pkgFormTitle').textContent = isEdit ? 'Edit package' : 'Add new package';
+  document.getElementById('pkgFormSubtitle').textContent = isEdit
+    ? 'Update anything a traveller would see on the package detail page.'
+    : 'Fill in everything a traveller would see on the package detail page.';
+  document.getElementById('pkgFormSubmitBtn').textContent = isEdit ? 'Save changes' : 'Add package';
+}
+
+function openAddPackageForm(){
+  editingPackageId = null;
+  setPkgFormMode(false);
+  ['np-title','np-destination','np-duration','np-groupsize','np-price','np-image','np-gallery','np-highlights','np-inclusions','np-exclusions','np-permitnote'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('np-rating').value = '4.5';
+  document.getElementById('np-featured').checked = false;
+  document.getElementById('np-permit').checked = false;
+  document.getElementById('np-category').value = 'Hill Station';
+  toggleNpPermitNote();
+  npItinerary = [{ day:1, title:'', desc:'' }];
+  npTransport = defaultTransportRows();
+  renderNpItinerary();
+  renderNpTransport();
+  goToPage('pageAddPackage');
+}
+
+function editPackage(id){
+  const p = PACKAGES.find(x => x.id === id);
+  if(!p) return;
+
+  editingPackageId = id;
+  setPkgFormMode(true);
+
+  document.getElementById('np-title').value = p.title;
+  document.getElementById('np-category').value = p.category;
+  document.getElementById('np-destination').value = p.destination;
+  document.getElementById('np-duration').value = p.duration;
+  document.getElementById('np-groupsize').value = p.groupSize;
+  document.getElementById('np-price').value = p.price;
+  document.getElementById('np-rating').value = p.rating;
+  document.getElementById('np-featured').checked = !!p.featured;
+  document.getElementById('np-image').value = p.image;
+  document.getElementById('np-gallery').value = (p.gallery || []).join('\n');
+  document.getElementById('np-highlights').value = (p.highlights || []).join('\n');
+  document.getElementById('np-inclusions').value = (p.inclusions || []).join('\n');
+  document.getElementById('np-exclusions').value = (p.exclusions || []).join('\n');
+  document.getElementById('np-permit').checked = !!p.permit;
+  document.getElementById('np-permitnote').value = p.permitNote || '';
+  toggleNpPermitNote();
+
+  npItinerary = (p.itinerary && p.itinerary.length) ? p.itinerary.map(d => ({ ...d })) : [{ day:1, title:'', desc:'' }];
+  npTransport = (p.transport && p.transport.length) ? p.transport.map(t => ({ ...t })) : defaultTransportRows();
+  renderNpItinerary();
+  renderNpTransport();
+
+  goToPage('pageAddPackage');
+}
+
+function linesToArray(text){
+  return text.split('\n').map(l => l.trim()).filter(l => l.length);
+}
+
+function saveNewPackage(){
+  const title = document.getElementById('np-title').value.trim();
+  if(!title){ alert('Please give the package a title.'); return; }
+
+  const image = document.getElementById('np-image').value.trim();
+  const gallery = linesToArray(document.getElementById('np-gallery').value);
+  const fallbackImage = 'https://images.unsplash.com/photo-1721070025492-26368db1706f?auto=format&fit=crop&w=1000&q=80';
+
+  const pkg = {
+    id: editingPackageId || ('p_' + Date.now()),
+    title,
+    destination: document.getElementById('np-destination').value.trim() || 'To be confirmed',
+    category: document.getElementById('np-category').value,
+    image: image || fallbackImage,
+    gallery: gallery.length ? gallery : [image || fallbackImage],
+    duration: document.getElementById('np-duration').value.trim() || 'Duration TBD',
+    price: Number(document.getElementById('np-price').value) || 0,
+    rating: Number(document.getElementById('np-rating').value) || 4.5,
+    reviews: editingPackageId ? (PACKAGES.find(p => p.id === editingPackageId)?.reviews || 0) : 0,
+    groupSize: document.getElementById('np-groupsize').value.trim() || '2-8 people',
+    highlights: linesToArray(document.getElementById('np-highlights').value),
+    itinerary: npItinerary.filter(d => d.title.trim() || d.desc.trim()),
+    inclusions: linesToArray(document.getElementById('np-inclusions').value),
+    exclusions: linesToArray(document.getElementById('np-exclusions').value),
+    transport: npTransport.map(t => ({ type: t.type, without: Number(t.without)||0, with: Number(t.with)||0, note: t.note })),
+    permit: document.getElementById('np-permit').checked,
+    permitNote: document.getElementById('np-permit').checked ? document.getElementById('np-permitnote').value.trim() : ''
+  };
+
+  if(editingPackageId){
+    const idx = PACKAGES.findIndex(p => p.id === editingPackageId);
+    if(idx > -1) PACKAGES[idx] = pkg;
+    toastAlert(`"${pkg.title}" was updated.`);
+  } else {
+    PACKAGES.push(pkg);
+    toastAlert(`"${pkg.title}" was added.`);
+  }
+
+  editingPackageId = null;
+  renderPackages();
+  backToPackages();
+}
+
+renderDestinations();
+renderPackages();
+renderTestimonials();
+applyAuthUI();
+</script>
+</body>
+</html>
